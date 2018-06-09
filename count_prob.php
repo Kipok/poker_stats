@@ -1,0 +1,3 @@
+<?php
+    echo "Reached php!";
+?>

@@ -1,0 +1,70 @@
+body {
+    font-family: verdana;
+}
+
+#request {
+    font-size: 25px;
+    margin: 12px auto;
+    width: 235px;
+}
+
+#result-prob {
+    margin-top: 10px;
+}
+
+#form {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1236;
+}
+
+#submit-button {
+    margin-top: 10px;
+}
+
+#opps input {
+    width: 55px;
+}
+
+.card, .card-clicked {
+    float: left;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden    
+    float: left;
+    margin: 5px;
+    background-color: #afb123;
+    border-radius: 10px;
+    
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.card img {
+    height: 130px;
+    opacity: 0.5;
+}
+
+.card img:hover {
+    height: 130px;
+    opacity: 0.8;
+}
+
+.card-clicked img {
+    height: 130px;
+    opacity: 1.0;
+}
+
+#cards {
+    width: 1236;
+    height: 560px;
+    margin: 0 auto;
+    background-color: #57b737;
+    
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+}

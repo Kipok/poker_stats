@@ -19,15 +19,15 @@ $(function() {
 
     $(form_elem).submit(function(event) {
         event.preventDefault();
-        var form_data = $(form_elem).serialize();
         var cards_chosen = $.map($(".card-clicked"), function(elem, idx) {
           return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
         });
-        // console.log($(form_data));
+        var form_data = $(form_elem).serializeArray();
+        form_data.push({name: "cards_chosen", value: cards_chosen});
         $.ajax({
             type: 'POST',
             url: $(form_elem).attr('action'),
-            data: form_data
+            data: $.param(form_data)
         }).done(function(response) {
             $(result_field).text(response);
         }).fail(function(data) {

@@ -14,12 +14,16 @@ $("document").ready(function(){
 });
 
 $(function() {
-    var form_elem = $('#form');
+    var form_elem = $('#prob-form');
     var result_field = $("#result-prob");
 
     $(form_elem).submit(function(event) {
         event.preventDefault();
         var form_data = $(form_elem).serialize();
+        var cards_chosen = $.map($(".card-clicked"), function(elem, idx) {
+          return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
+        });
+        // console.log($(form_data));
         $.ajax({
             type: 'POST',
             url: $(form_elem).attr('action'),

@@ -38,11 +38,29 @@ $(function() {
 
     $(form_elem).submit(function(event) {
         event.preventDefault();
-        var cards_chosen = $.map($(".card-clicked"), function(elem, idx) {
-          return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
-        });
         var form_data = $(form_elem).serializeArray();
-        form_data.push({name: "cards_chosen", value: cards_chosen});
+        var cards_you = $.map($(".card-clicked"), function(elem, idx) {
+            if ($($(elem).find(".card-posess")[0]).text() === "yours") {
+                return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
+            }
+        });
+        form_data.push({name: "cards_you", value: cards_you});
+        var cards_table = $.map($(".card-clicked"), function(elem, idx) {
+            if ($($(elem).find(".card-posess")[0]).text() === "table") {
+                return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
+            }
+        });
+        form_data.push({name: "cards_table", value: cards_table});        
+        for (i = 1; i <= $("#opps-input").val(); i++) {
+            var name = "op" + i.toString();
+            var cards_op = $.map($(".card-clicked"), function(elem, idx) {
+                if ($($(elem).find(".card-posess")[0]).text() === name) {
+                    return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
+                }
+            });
+            form_data.push({name: "cards_" + name, value: cards_op});
+        }
+        console.log(form_data);
         $.ajax({
             type: 'POST',
             url: $(form_elem).attr('action'),

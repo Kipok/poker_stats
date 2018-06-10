@@ -1,12 +1,24 @@
 $("document").ready(function(){
     $(".card").click(
     function() {
-        var num_clicked = $(".card-clicked").length;
-        if (num_clicked < 2 && $(this).hasClass("card")) {
+        var posession = $("#selector").val();
+        var num_clicked = 0;
+        $(".card-clicked").each(function(idx)  {
+            if ($($(this).find(".card-posess")[0]).text() === posession) {
+                num_clicked += 1;
+            }
+        });
+        var limit = 2;
+        if (posession === "table") {
+            limit = 5;
+        }
+        if (num_clicked < limit && $(this).hasClass("card")) {
             $(this).removeClass("card").addClass("card-clicked");
+            $($(this).find(".card-posess")[0]).text(posession);
         } else {
             if ($(this).hasClass("card-clicked")) {
                 $(this).removeClass("card-clicked").addClass("card");
+                $($(this).find(".card-posess")[0]).text("");
             }
         }
        // }

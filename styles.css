@@ -5,7 +5,11 @@ body {
 #request {
     font-size: 25px;
     margin: 12px auto;
-    width: 235px;
+    width: 320px;
+}
+
+#request-content {
+    display: inline;
 }
 
 #result-prob {
@@ -28,8 +32,11 @@ body {
     width: 55px;
 }
 
+#selector {}
+
 .card, .card-clicked {
     height: 130px;
+    width: 85px;
     float: left;
     justify-content: center;
     align-items: center;
@@ -38,25 +45,45 @@ body {
     margin: 5px;
     background-color: #afb123;
     border-radius: 10px;
+    position: relative;
+    text-align: center;
     
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
+.card-posess {
+    position: absolute;
+    font-size: 12px;
+    width: 80px;
+}
+
 .card img {
     height: 130px;
     opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    margin: 0 auto;
+    display: block;
 }
 
 .card img:hover {
     height: 130px;
     opacity: 0.8;
+    position: absolute;
+    top: 0px;
+    margin: 0 auto;
+    display: block;
 }
 
 .card-clicked img {
     height: 130px;
     opacity: 1.0;
+    position: absolute;
+    top: 0px;
+    margin: 0 auto;
+    display: block;
 }
 
 #cards {

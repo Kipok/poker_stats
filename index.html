@@ -10,14 +10,18 @@
 </head>
 <body>
     <div id="request">
-        <div id="request-content">
-        Choose cards for
-            <select id="selector">
-                <option value="yours">you</option>
-                <option value="table">table</option>
-                <option value="op1">op-1</option>
-            </select>
-        </div>
+         <form id="prob-form" action="count_prob.php">
+            <div id="request-content">
+                Choose cards for
+                <select id="selector">
+                    <option value="yours">you</option>
+                    <option value="table">table</option>
+                    <option value="op1">op1</option>
+                </select>
+            </div>
+            <div id="opps">Number of opponents: <input id="opps-input" type="number" name="num_ops" value="1" required/></div>
+            <div id="submit-button"><input type="submit" value="Estimate"></div>
+        </form>
     </div>
     <div id="cards">
         <div class="card">
@@ -233,10 +237,6 @@
         </div>
     </div>
     <div id="form">
-        <form id="prob-form" action="count_prob.php">
-            <div id="opps">Number of opponents: <input type="number" name="num_ops" value="2" required/></div>
-            <div id="submit-button"><input type="submit" value="Count"></div>
-        </form>
         <div id="result-prob">Winning probability: 23%</div>
     </div>
 </body>

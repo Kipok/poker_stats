@@ -1,6 +1,5 @@
 $("document").ready(function(){
-    $(".card").click(
-    function() {
+    $(".card").click(function() {
         var posession = $("#selector").val();
         var num_clicked = 0;
         $(".card-clicked").each(function(idx)  {
@@ -21,8 +20,16 @@ $("document").ready(function(){
                 $($(this).find(".card-posess")[0]).text("");
             }
         }
-       // }
     });
+    $("#opps-input").change(function() {
+        $('#selector').children().remove();
+        $('#selector').append('<option value="yours">you</option>');
+        $('#selector').append('<option value="table">table</option>');
+        for (i = 1; i <= $(this).val(); i++) {
+            var value = "op" + i.toString();
+            $('#selector').append($("<option></option>").attr("value", value).text(value));
+        }
+    })
 });
 
 $(function() {

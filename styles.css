@@ -5,10 +5,24 @@ body {
 #request {
     font-size: 25px;
     margin: 12px auto;
-    width: 320px;
 }
 
 #request-content {
+    display: inline;
+    margin-right: 50px;
+}
+
+#prob-form {
+    width: 901px;
+    margin: 0 auto;
+}
+
+#opps {
+    display: inline;
+    margin-right: 50px;
+}
+
+#submit-button  {
     display: inline;
 }
 
@@ -32,7 +46,9 @@ body {
     width: 55px;
 }
 
-#selector {}
+#selector {
+    width: 86px;
+}
 
 .card, .card-clicked {
     height: 130px;

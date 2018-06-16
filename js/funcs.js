@@ -1,29 +1,59 @@
 card2idx = {
-  "2C": 1, "2D": 2, "2H": 3, "2S": 4,
-  "3C": 5, "3D": 6, "3H": 7, "3S": 8,
-  "4C": 9, "4D": 10, "4H": 11, "4S": 12,
-  "5C": 13, "5D": 14, "5H": 15, "5S": 16,
-  "6C": 17, "6D": 18, "6H": 19, "6S": 20,
-  "7C": 21, "7D": 22, "7H": 23, "7S": 24,
-  "8C": 25, "8D": 26, "8H": 27, "8S": 28,
-  "9C": 29, "9D": 30, "9H": 31, "9S": 32,
-  "10C": 33, "10D": 34, "10H": 35, "10S": 36,
-  "JC": 37,  "JD": 38, "JH": 39, "JS": 40,
-  "QC": 41,  "QD": 42, "QH": 43, "QS": 44,
-  "KC": 45,  "KD": 46, "KH": 47, "KS": 48,
-  "AC": 49,  "AD": 50, "AH": 51, "AS": 52
-}
+  "2c": 1,  "2d": 2,  "2h": 3,  "2s": 4,
+  "3c": 5,  "3d": 6,  "3h": 7,  "3s": 8,
+  "4c": 9,  "4d": 10, "4h": 11, "4s": 12,
+  "5c": 13, "5d": 14, "5h": 15, "5s": 16,
+  "6c": 17, "6d": 18, "6h": 19, "6s": 20,
+  "7c": 21, "7d": 22, "7h": 23, "7s": 24,
+  "8c": 25, "8d": 26, "8h": 27, "8s": 28,
+  "9c": 29, "9d": 30, "9h": 31, "9s": 32,
+  "Tc": 33, "Td": 34, "Th": 35, "Ts": 36,
+  "Jc": 37, "Jd": 38, "Jh": 39, "Js": 40,
+  "Qc": 41, "Qd": 42, "Qh": 43, "Qs": 44,
+  "Kc": 45, "Kd": 46, "Kh": 47, "Ks": 48,
+  "Ac": 49, "Ad": 50, "Ah": 51, "As": 52
+};
 
-idx2card = {}
+idx2card = {};
 for (var key in card2idx) {
     if (card2idx.hasOwnProperty(key)) {           
         idx2card[card2idx[key]] = key;
     }
 }
 
+function ids2cards(ids) {
+	cards = [];
+	for (var i = 0; i < ids.length; i++) {
+		cards[i] = idx2card[ids[i]];
+	}
+	return cards;
+}
 
-function calc_prob(game_info) {
-    console.log(game_info);
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+function fill_cards(arr, num_cards, ids_left, ids_cnt) {
+    cur_arr = [];
+    var i = 0;
+    for (; i < arr.length; i++) {
+        cur_arr.push(card2idx[arr[i]]);
+    }
+    for (; i < num_cards; i++) {
+        cur_arr.push(ids_left[ids_cnt[0]++]);
+    }
+	return cur_arr;
+}
+
+function calc_prob(game_info, num_samples) {
+	var num_ops = parseInt(game_info["num_ops"]);
     var hand = game_info["cards_you"];
     var table = game_info["cards_table"];
     var ids_used = [];
@@ -47,6 +77,25 @@ function calc_prob(game_info) {
             continue;
         }
         ids_left.push(i);
+    }
+	var ids_cnt = [0];
+    for (var i = 0; i < num_samples; i++) {
+		shuffle(ids_left);
+		ids_cnt[0] = 0;
+        var cur_hand = fill_cards(hand, 2, ids_left, ids_cnt);
+		var cur_table = fill_cards(table, 5, ids_left, ids_cnt);
+		console.log(ids2cards(cur_hand.concat(cur_table)));
+		var your_hand = Hand.solve(ids2cards(cur_hand.concat(cur_table)));
+		for (var j = 0; j < num_ops; j++) {
+			var cur_op = fill_cards(game_info["cards_op" + j], 2, ids_left, ids_cnt);
+			var op_hand = Hand.solve(ids2cards(cur_op.concat(cur_table)));
+			var winner = Hand.winners([your_hand, op_hand]);
+			console.log(cur_hand);
+			console.log(cur_table);
+			console.log(your_hand);
+			console.log(op_hand);
+			console.log(winner);
+		}
     }
     return ids_left;
 }
@@ -85,7 +134,7 @@ $(function() {
           game_info[form_data[i]['name']] = form_data[i]['value'];
         }
 
-        console.log(calc_prob(game_info));
+		var prop_msg = calc_prob(game_info, 2);
 //        $(result_field).text(card2idx(game_info["cards_you"][0]));
 //        $.ajax({
 //            type: 'POST',

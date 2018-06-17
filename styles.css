@@ -9,17 +9,26 @@ body {
 
 #request-content {
     display: inline;
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 #prob-form {
-    width: 901px;
+    width: 1225px;
     margin: 0 auto;
+}
+
+#samples {
+    display: inline;
+    margin-right: 20px;
+}
+
+#num-samples {
+    width: 120px;
 }
 
 #opps {
     display: inline;
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 #submit-button  {

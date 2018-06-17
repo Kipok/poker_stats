@@ -79,25 +79,41 @@ function calc_prob(game_info, num_samples) {
         ids_left.push(i);
     }
 	var ids_cnt = [0];
+    var num_wins = 0;
+    var num_draws = 0;
     for (var i = 0; i < num_samples; i++) {
 		shuffle(ids_left);
 		ids_cnt[0] = 0;
         var cur_hand = fill_cards(hand, 2, ids_left, ids_cnt);
 		var cur_table = fill_cards(table, 5, ids_left, ids_cnt);
-		console.log(ids2cards(cur_hand.concat(cur_table)));
 		var your_hand = Hand.solve(ids2cards(cur_hand.concat(cur_table)));
-		for (var j = 0; j < num_ops; j++) {
+        var lost = 0;
+        var draw = 0;
+		for (var j = 1; j <= num_ops; j++) {
 			var cur_op = fill_cards(game_info["cards_op" + j], 2, ids_left, ids_cnt);
 			var op_hand = Hand.solve(ids2cards(cur_op.concat(cur_table)));
-			var winner = Hand.winners([your_hand, op_hand]);
-			console.log(cur_hand);
-			console.log(cur_table);
-			console.log(your_hand);
-			console.log(op_hand);
-			console.log(winner);
+			var winners = Hand.winners([your_hand, op_hand]);
+            if (winners[0] !== your_hand) {
+                lost = 1;
+                break;
+            }
+            if (winners.length === 2) {
+                draw = 1;
+            }
 		}
-    }
-    return ids_left;
+        if (lost === 1) {
+            continue;
+        }
+        if (draw === 1) {
+            ++num_draws;
+        } else {
+            ++num_wins;
+        }
+    };
+    result_str = " Win: " + (100.0 * num_wins /  num_samples).toFixed(2) + "%<br>";
+    result_str += "Draw: " + (100.0 * num_draws /  num_samples).toFixed(2) + "%<br>";
+    result_str += "Lose: " + (100.0 - 100.0 * (num_draws + num_wins) /  num_samples).toFixed(2) + "%";
+    return result_str;
 }
 
 
@@ -133,22 +149,8 @@ $(function() {
         for (var i = 0; i < form_data.length; i++){
           game_info[form_data[i]['name']] = form_data[i]['value'];
         }
-
-		var prop_msg = calc_prob(game_info, 2);
-//        $(result_field).text(card2idx(game_info["cards_you"][0]));
-//        $.ajax({
-//            type: 'POST',
-//            url: $(form_elem).attr('action'),
-//            data: $.param(form_data)
-//        }).done(function(response) {
-//            $(result_field).text(response);
-//        }).fail(function(data) {
-//            if (data.responseText !== '') {
-//                $(result_field).text(data.responseText);
-//            } else {
-//                $(result_field).text('Something went wrong..');
-//            }
-//        });
+		var prob_msg = calc_prob(game_info, game_info['num_samples']);
+        $(result_field).html(prob_msg);
     });
 });
 

@@ -78,19 +78,21 @@ function calc_prob(game_info, num_samples) {
         }
         ids_left.push(i);
     }
-	var ids_cnt = [0];
     var num_wins = 0;
     var num_draws = 0;
-    for (var i = 0; i < num_samples; i++) {
-		shuffle(ids_left);
-		ids_cnt[0] = 0;
-        var cur_hand = fill_cards(hand, 2, ids_left, ids_cnt);
-		var cur_table = fill_cards(table, 5, ids_left, ids_cnt);
+  
+    function map_fn(i) {
+       	console.log("!"); 
+		var ids_left_copy = ids_left.slice(0);
+		shuffle(ids_left_copy);
+        var ids_cnt = [0];
+        var cur_hand = fill_cards(hand, 2, ids_left_copy, ids_cnt);
+		var cur_table = fill_cards(table, 5, ids_left_copy, ids_cnt);
 		var your_hand = Hand.solve(ids2cards(cur_hand.concat(cur_table)));
         var lost = 0;
         var draw = 0;
 		for (var j = 1; j <= num_ops; j++) {
-			var cur_op = fill_cards(game_info["cards_op" + j], 2, ids_left, ids_cnt);
+			var cur_op = fill_cards(game_info["cards_op" + j], 2, ids_left_copy, ids_cnt);
 			var op_hand = Hand.solve(ids2cards(cur_op.concat(cur_table)));
 			var winners = Hand.winners([your_hand, op_hand]);
             if (winners[0] !== your_hand) {
@@ -101,15 +103,41 @@ function calc_prob(game_info, num_samples) {
                 draw = 1;
             }
 		}
-        if (lost === 1) {
-            continue;
+		if (lost === 1) {
+            return 0;
         }
         if (draw === 1) {
-            ++num_draws;
+            return 1;
         } else {
-            ++num_wins;
+            return 2;
+        }
+    }; 
+  
+	function reduce_fn(d) {
+        for (var i = 0; i < num_samples; ++i) { 
+            if (d[i] === 0) {
+                continue;
+            }
+            if (d[i] === 1) {
+                ++num_draws;
+            } else {
+                ++num_wins;
+            }
         }
     };
+
+    var data = new Array(num_samples);
+    for (var i = 0; i < num_samples; ++i) {
+       data[i] = i;
+	}
+
+	if (false) {
+		var pool = new Parallel(data, maxWorkers=12);  
+		data.map(map_fn).then(reduce_fn);    
+	} else {
+		reduce_fn(data.map(map_fn));    
+	}
+
     result_str = " Win: " + (100.0 * num_wins /  num_samples).toFixed(2) + "%<br>";
     result_str += "Draw: " + (100.0 * num_draws /  num_samples).toFixed(2) + "%<br>";
     result_str += "Lose: " + (100.0 - 100.0 * (num_draws + num_wins) /  num_samples).toFixed(2) + "%";

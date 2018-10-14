@@ -62,8 +62,6 @@ body {
 .card, .card-clicked {
     height: 9.3vw;
     width: 6.1vw;
- /*   height: 130px;
-    width: 85px;*/
     max-width: 85px;
     max-height: 130px;
 
@@ -138,9 +136,10 @@ body {
 
 #cards-mobile {
     display: none;
-    width: 400px;
-    height: 1236px;
+    flex-wrap: wrap;
+
     margin: 0 auto;
+    max-width: 400px;
     background-color: #57b737;
     
     -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
@@ -150,11 +149,22 @@ body {
 
 @media (max-width: 820px) {
     #cards-desktop {display: none;}
-    #cards-mobile {display: block;}
+    #cards-mobile {display: flex;}
+    .card, .card-clicked {
+        height: 27.5vw;
+        width: 17.8vw;
+    }
 }
 
 @media (max-width: 1280px) {
     #cards-desktop {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+@media (max-width: 440px) {
+    #cards-mobile {
         margin-left: 20px;
         margin-right: 20px;
     }

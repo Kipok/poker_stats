@@ -56,9 +56,9 @@ $(function() {
                     num_wins += data[i][0];
                     num_draws += data[i][1];
                 }
-                prob_str = " Win: " + (100.0 * num_wins /  actual_num_samples).toFixed(2) + "%<br>";
-                prob_str += "Draw: " + (100.0 * num_draws /  actual_num_samples).toFixed(2) + "%<br>";
-                prob_str += "Lose: " + (100.0 - 100.0 * (num_draws + num_wins) /  actual_num_samples).toFixed(2) + "%";
+                prob_str = " Win chance: " + (100.0 * num_wins /  actual_num_samples).toFixed(2) + "%<br>";
+                prob_str += "Draw chance: " + (100.0 * num_draws /  actual_num_samples).toFixed(2) + "%<br>";
+                prob_str += "Lose chance: " + (100.0 - 100.0 * (num_draws + num_wins) /  actual_num_samples).toFixed(2) + "%";
                 $(result_field).html(prob_str);
             })
             .catch(function(error) {

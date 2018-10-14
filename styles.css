@@ -2,61 +2,8 @@ body {
     font-family: verdana;
 }
 
-/*#request {
-    font-size: 25px;
-    margin: 12px auto;
-}
-
-#request-content {
-    display: inline;
-    margin-right: 20px;
-}
-
-#prob-form {
-    width: 1259px;
-    margin: 0 auto;
-}
-
-#samples {
-    display: inline;
-    margin-right: 20px;
-}
-
-#num-samples {
-    width: 120px;
-}
-
-#opps {
-    display: inline;
-    margin-right: 20px;
-}
-
-#submit-button  {
-    display: inline;
-}*/
-
-#result-prob {
-    margin-top: 10px;
-}
-
-#form {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1236px;
-}
-
-#submit-button {
-    margin-top: 10px;
-}
-
-#opps input {
-    width: 55px;
-}
-
-#selector {
-    width: 86px;
+#main-form {
+    max-width: 400px;
 }
 
 .card, .card-clicked {

@@ -2,7 +2,7 @@ body {
     font-family: verdana;
 }
 
-#request {
+/*#request {
     font-size: 25px;
     margin: 12px auto;
 }
@@ -33,7 +33,7 @@ body {
 
 #submit-button  {
     display: inline;
-}
+}*/
 
 #result-prob {
     margin-top: 10px;

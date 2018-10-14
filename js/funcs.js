@@ -32,7 +32,7 @@ $(function() {
           game_info[form_data[i]['name']] = form_data[i]['value'];
         }
 
-        var num_workers = 8;
+        var num_workers = game_info["num_workers"];
         var num_samples = game_info["num_samples"];
         var promises = [];
         for (var i = 0; i < num_workers; i++) {

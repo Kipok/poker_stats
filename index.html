@@ -15,43 +15,23 @@
 <body>
 <div class="container">
      <form id="prob-form" action="#">
-        <div class="form-row">
-            <div class="col">
-                <label for="selector">Choose cards for</label>
-            </div>
-            <div class="col">
-                <select class="custom-select" id="selector">
-                    <option>you</option>
-                    <option>table</option>
-                    <option>op1</option>
-                </select>
-            </div>
+        <div class="form-inline mt-3 mb-2">
+            <label for="selector">Choose cards for</label>
+            <select class="custom-select ml-3 mr-5" id="selector">
+                <option>you</option>
+                <option>table</option>
+                <option>op1</option>
+            </select>
+            <label for="opps-input">Number of opponents</label>
+            <input class="form-control ml-3" id="opps-input" type="number" name="num_ops" value="1" required/>
         </div>
-        <div class="form-row">
-            <div class="col">
-                <label for="opps-input">Number of opponents</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="opps-input" type="number" name="num_ops" value="1" required/>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <label for="num_samples">Simulate games</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="num-samples" type="number" name="num_samples" value="10000" required/>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <label for="num_workers">Number of workers</label>
-            </div>
-            <div class="col">
-                <input class="form-control" id="num-workers" type="number" name="num_workers" value="4" required/>
-            </div>
+        <div class="form-inline mb-2">
+            <label for="num_samples">Simulate games</label>
+            <input class="form-control ml-3 mr-5" id="num-samples" type="number" name="num_samples" value="10000" required/>
+            <label for="num_workers">Number of workers</label>
+            <input class="form-control ml-3" id="num-workers" type="number" name="num_workers" value="4" required/>
         </div>        
-        <button type="submit" class="btn btn-primary btn-lg">Estimate</button>
+        <button type="submit" class="btn btn-primary mb-3">Estimate</button>
     </form>
 </div>
 <div id="cards-desktop">

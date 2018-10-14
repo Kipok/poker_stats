@@ -3,6 +3,7 @@ $(function() {
     var result_field = $("#result-prob");
 
     $(form_elem).submit(function(event) {
+        $(result_field).text("...Processing...");
         event.preventDefault();
         var form_data = $(form_elem).serializeArray();
         var cards_you = $.map($(".card-clicked"), function(elem, idx) {

@@ -122,6 +122,12 @@ body {
     }
 }
 
+@media (max-width: 1189.98px) {
+    #title {
+        font-size: 1.3rem;
+    }
+}
+
 @media (max-width: 1059.98px) { 
     .card-posess {
         font-size: 0.6rem;
@@ -129,11 +135,17 @@ body {
     #logo {
         display: none;
     }
+    #title {
+        font-size: 1.08rem;
+    }
 }
 
 @media (max-width: 899.98px) { 
     .card-posess {
         font-size: 0.5rem;
+    }
+    #title {
+        font-size: 0.95rem;
     }
 }
 
@@ -149,6 +161,15 @@ body {
     }
     #main-form {
         max-width: 400px;
+    }
+    #title {
+        text-align: justify;
+    }
+    .submit-button {
+        height: auto;
+    }
+    .submit-button button {
+        position: static;
     }
 }
 

@@ -12,7 +12,15 @@
     <script src="js/pokersolver.js" type="text/javascript"></script>
     <script src="js/funcs.js" type="text/javascript"></script>
 
-    <title>Poker stats</title>
+    <title>PokerStats</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
 <div class="container mt-3">
@@ -39,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <label for="opps-input">Number of opponents</label>
-                        <input class="form-control" id="opps-input" type="number" name="num_ops" value="1" required/>
+                        <input class="form-control" id="opps-input" type="number" min="1" max="20" name="num_ops" value="1" required/>
                     </div>
                 </div>
             </div>
@@ -50,16 +58,16 @@
                 <div class="mb-2 collapse show" id="adv-options">
                     <div class="form-group">
                         <label for="num_samples">Simulate games</label>
-                        <input class="form-control" id="num-samples" type="number" name="num_samples" value="10000" required/>
+                        <input class="form-control" id="num-samples" min="1" type="number" name="num_samples" value="10000" required/>
                     </div>
                     <div class="form-group">
                         <label for="num_workers">Number of workers</label>
-                        <input class="form-control" id="num-workers" type="number" name="num_workers" value="4" required/>
+                        <input class="form-control" id="num-workers" min="1" type="number" name="num_workers" value="4" required/>
                     </div>
                 </div>
             </div>
             <div class="col-md submit-button">
-                <button type="submit" class="btn btn-primary mb-3" data-toggle="modal" data-target="#prob-modal">Estimate</button>
+                <button id="estimate-button" type="submit" class="btn btn-primary mb-3" data-toggle="modal" data-target="#prob-modal">Estimate</button>
             </div>
             <div class="col-md" id="logo">
                 <img class="img-fluid" src="images/aces.png"/>
@@ -557,7 +565,7 @@
 
 <div class="container mb-3">
     <div class="h5">How to use this tool?</div>
-    <div class="h6" id="how-to-use">Just select the cards for the current table situation and press "Estimate" button. You can select the cards by clicking on them. Change for whom you're selecting cards by using "Choose cards for" selector on top. If you want to get more accurate estimate of the probability increase the number of simulated games under the advanced options. This will give a better estimate of the numbers, but will also make the calculations slower. You can also adjust the number of workers to be equal to the number of CPU cores you have, or just leave it as it is if you don't know what CPU cores are.</div>
+    <div class="h6" id="how-to-use">Just select the cards for the current table situation and press "Estimate" button. You can select the cards by clicking on them. Change for whom you're selecting cards by using "Choose cards for" selector on top. If you want to get more accurate estimate of the probability, increase the number of simulated games under the advanced options. This will give a better estimate of the numbers, but will also make the calculations slower. For fastest calculation you should also adjust the number of workers to be equal to the number of CPU cores you have, or just leave it as it is, if you don't know what CPU cores are.</div>
 </div>
 
 </body>

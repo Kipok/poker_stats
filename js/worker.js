@@ -1,4 +1,4 @@
-if( 'function' === typeof importScripts) {
+if('function' === typeof importScripts) {
     self.importScripts("pokersolver.js");
 
     card2idx = {
@@ -84,7 +84,7 @@ if( 'function' === typeof importScripts) {
         var num_wins = 0;
         var num_draws = 0;
       
-        function map_fn(i) {
+        for (var i = 0; i < num_samples; i++) {
             var ids_left_copy = ids_left.slice(0);
             shuffle(ids_left_copy);
             var ids_cnt = [0];
@@ -93,55 +93,28 @@ if( 'function' === typeof importScripts) {
             var your_hand = Hand.solve(ids2cards(cur_hand.concat(cur_table)));
             var lost = 0;
             var draw = 0;
-             for (var j = 1; j <= num_ops; j++) {
-                 var cur_op = fill_cards(game_info["cards_op" + j], 2, ids_left_copy, ids_cnt);
-                 var op_hand = Hand.solve(ids2cards(cur_op.concat(cur_table)));
-                 var winners = Hand.winners([your_hand, op_hand]);
-                    if (winners[0] !== your_hand) {
-                        lost = 1;
-                        break;
-                    }
-                    if (winners.length === 2) {
-                        draw = 1;
-                    }
-             }
-             if (lost === 1) {
-                    return 0;
+            for (var j = 1; j <= num_ops; j++) {
+                var cur_op = fill_cards(game_info["cards_op" + j], 2, ids_left_copy, ids_cnt);
+                var op_hand = Hand.solve(ids2cards(cur_op.concat(cur_table)));
+                var winners = Hand.winners([your_hand, op_hand]);
+                if (winners[0] !== your_hand) {
+                    lost = 1;
+                    break;
                 }
-                if (draw === 1) {
-                    return 1;
-                } else {
-                    return 2;
-                }
-            };
-
-        function reduce_fn(d) {
-            for (var i = 0; i < num_samples; ++i) { 
-                if (d[i] === 0) {
-                    continue;
-                }
-                if (d[i] === 1) {
-                    ++num_draws;
-                } else {
-                    ++num_wins;
+                if (winners.length === 2) {
+                    draw = 1;
                 }
             }
-        };
-
-        var data = new Array(num_samples);
-        for (var i = 0; i < num_samples; ++i) {
-           data[i] = i;
+            if (lost === 1) {
+                continue;
+            }
+            if (draw === 1) {
+                ++num_draws;
+            } else {
+                ++num_wins;
+            }
         }
-
-        reduce_fn(data.map(map_fn));    
-
         return [num_wins, num_draws];
-
-
-     //    result_str = " Win: " + (100.0 * num_wins /  num_samples).toFixed(2) + "%<br>";
-     //    result_str += "Draw: " + (100.0 * num_draws /  num_samples).toFixed(2) + "%<br>";
-     //    result_str += "Lose: " + (100.0 - 100.0 * (num_draws + num_wins) /  num_samples).toFixed(2) + "%";
-     //    return result_str;
     }
 
     self.onmessage = function(event) {

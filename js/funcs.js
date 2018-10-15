@@ -1,11 +1,8 @@
-$(function() {
-    var form_elem = $('#prob-form');
-    var result_field = $("#result-prob");
-
-    $(form_elem).submit(function(event) {
-        $(result_field).text("...Processing...");
+$("document").ready(function() {
+    $('#prob-form').submit(function(event) {
+        $("#result-prob").text("...Processing...");
         event.preventDefault();
-        var form_data = $(form_elem).serializeArray();
+        var form_data = $('#prob-form').serializeArray();
         var cards_you = $.map($(".card-clicked"), function(elem, idx) {
             if ($($(elem).find(".card-posess")[0]).text() === "yours") {
                 return $(elem).find("img").first().attr("src").split('/')[1].split('.')[0];
@@ -29,7 +26,7 @@ $(function() {
         }
         var game_info = {};
         for (var i = 0; i < form_data.length; i++){
-          game_info[form_data[i]['name']] = form_data[i]['value'];
+            game_info[form_data[i]['name']] = form_data[i]['value'];
         }
 
         var num_workers = game_info["num_workers"];
@@ -59,16 +56,14 @@ $(function() {
                 prob_str = " Win chance: " + (100.0 * num_wins /  actual_num_samples).toFixed(2) + "%<br>";
                 prob_str += "Draw chance: " + (100.0 * num_draws /  actual_num_samples).toFixed(2) + "%<br>";
                 prob_str += "Lose chance: " + (100.0 - 100.0 * (num_draws + num_wins) /  actual_num_samples).toFixed(2) + "%";
-                $(result_field).html(prob_str);
+                $("#result-prob").html(prob_str);
             })
             .catch(function(error) {
                 console.log(error);
             });        
     });
-});
 
 
-$("document").ready(function(){
     $(".card").click(function() {
         var posession = $("#selector").val();
         var num_clicked = 0;
@@ -91,6 +86,7 @@ $("document").ready(function(){
             }
         }
     });
+
     $("#opps-input").change(function() {
         $('#selector').children().remove();
         $('#selector').append('<option value="yours">you</option>');
@@ -99,5 +95,5 @@ $("document").ready(function(){
             var value = "op" + i.toString();
             $('#selector').append($("<option></option>").attr("value", value).text(value));
         }
-    })
+    });
 });

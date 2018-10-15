@@ -2,75 +2,18 @@ body {
     font-family: verdana;
 }
 
-#request {
-    font-size: 25px;
-    margin: 12px auto;
-}
-
-#request-content {
-    display: inline;
-    margin-right: 20px;
-}
-
-#prob-form {
-    width: 1259px;
-    margin: 0 auto;
-}
-
-#samples {
-    display: inline;
-    margin-right: 20px;
-}
-
-#num-samples {
-    width: 120px;
-}
-
-#opps {
-    display: inline;
-    margin-right: 20px;
-}
-
-#submit-button  {
-    display: inline;
-}
-
-#result-prob {
-    margin-top: 10px;
-}
-
-#form {
-    font-size: 20px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1236px;
-}
-
-#submit-button {
-    margin-top: 10px;
-}
-
-#opps input {
-    width: 55px;
-}
-
-#selector {
-    width: 86px;
-}
-
 .card, .card-clicked {
-    height: 130px;
-    width: 85px;
-    float: left;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden    
-    float: left;
+    height: 9.2vw;
+    width: 5.9vw;
+    max-width: 85px;
+    max-height: 130px;
+
+    position: relative;
+    text-align: center;
+
     margin: 5px;
     background-color: #afb123;
     border-radius: 10px;
-    position: relative;
     text-align: center;
     
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -78,46 +21,141 @@ body {
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
+#logo {
+    align-self: center;
+}
+
+.submit-button {
+    max-width: 107px;
+    align-self: end;
+    height: 204px;
+}
+
+.submit-button button {
+    position: absolute;
+    bottom: 0;
+}
+
 .card-posess {
     position: absolute;
-    font-size: 12px;
-    width: 80px;
+    top: -4px;
+    z-index: 10;
+    font-size: 0.9rem;
+    width: 100%;
 }
 
 .card img {
-    height: 130px;
+    height: 100%;
     opacity: 0.5;
-    position: absolute;
-    top: 0px;
-    margin: 0 auto;
-    display: block;
 }
 
 .card img:hover {
-    height: 130px;
     opacity: 0.8;
-    position: absolute;
-    top: 0px;
-    margin: 0 auto;
-    display: block;
 }
 
 .card-clicked img {
-    height: 130px;
+    height: 100%;
     opacity: 1.0;
-    position: absolute;
-    top: 0px;
-    margin: 0 auto;
-    display: block;
 }
 
-#cards {
-    width: 1236px;
-    height: 560px;
+.cards-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#cards-desktop {
+    display: flex;
+    flex-wrap: wrap;
+
     margin: 0 auto;
+    max-width: 1240px;
     background-color: #57b737;
     
     -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+}
+
+#cards-mobile {
+    display: none;
+    flex-wrap: wrap;
+
+    margin: 0 auto;
+    max-width: 400px;
+    background-color: #57b737;
+    
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.75);
+}
+
+.container {
+    max-width: 1240px;
+}
+
+@media (max-width: 1379.98px) { 
+    .card-posess {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 1299.98px) { 
+    .card-posess {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 1279.98px) {
+    #cards-desktop {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 1059.98px) { 
+    .card-posess {
+        font-size: 0.6rem;
+    }
+    #logo {
+        display: none;
+    }
+}
+
+@media (max-width: 899.98px) { 
+    .card-posess {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    #cards-desktop {display: none;}
+    #cards-mobile {display: flex;}
+    .card, .card-clicked {
+        height: 27.5vw;
+        width: 17.8vw;
+    }
+    .card-posess {
+        font-size: 0.8rem;
+    }
+    #main-form {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 439.98px) {
+    #cards-mobile {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .card-posess {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 372.98px) {
+    .card-posess {
+        font-size: 0.6rem;
+    }
 }

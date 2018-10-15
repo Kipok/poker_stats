@@ -4,7 +4,6 @@
  * http://goldfirestudios.com
  */
 
-(function() {
   'use strict';
 
   // NOTE: The 'joker' will be denoted with a value of 'O' and any suit.
@@ -1851,5 +1850,3 @@
   if (typeof window !== 'undefined') {
     exportToGlobal(window);
   }
-
-})();

@@ -1,32 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="initial-scale=1">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-    <script src="js/parallel.min.js" type="text/javascript"></script>
     <script src="js/pokersolver.js" type="text/javascript"></script>
     <script src="js/funcs.js" type="text/javascript"></script>
+
     <title>Poker stats</title>
 </head>
 <body>
-    <div id="request">
-         <form id="prob-form" action="#">
-            <div id="request-content">
-                Choose cards for
-                <select id="selector">
-                    <option value="yours">you</option>
-                    <option value="table">table</option>
-                    <option value="op1">op1</option>
-                </select>
+<div class="container mt-3 mb-1" id="main-form">
+    <form id="prob-form" action="#">
+        <div class="form-row">
+            <div class="col-md">
+                <div id="basic-options-toggle" class="mb-2">
+                    <a data-toggle="collapse" href="#basic-options" role="button" aria-expanded="false" aria-controls="basic-options">Basic options</a>
+                </div>
+                <div class="mb-2 collapse show" id="basic-options">
+                    <div class="form-group">
+                        <label for="selector">Choose cards for</label>
+                        <select class="custom-select" id="selector">
+                            <option value="yours">you</option>
+                            <option value="table">table</option>
+                            <option value="op1">op1</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="opps-input">Number of opponents</label>
+                        <input class="form-control" id="opps-input" type="number" name="num_ops" value="1" required/>
+                    </div>
+                </div>
             </div>
-            <div id="opps">Number of opponents: <input id="opps-input" type="number" name="num_ops" value="1" required/></div>
-            <div id="samples">Simulate games: <input id="num-samples" type="number" name="num_samples" value="10000" required/></div>
-            <div id="submit-button"><input type="submit" value="Estimate"></div>
-        </form>
+            <div class="col-md">
+                <div id="adv-options-toggle" class="mb-2">
+                      <a data-toggle="collapse" href="#adv-options" role="button" aria-expanded="false" aria-controls="adv-options">Advanced options</a>
+                </div>
+                <div class="mb-2 collapse show" id="adv-options">
+                    <div class="form-group">
+                        <label for="num_samples">Simulate games</label>
+                        <input class="form-control" id="num-samples" type="number" name="num_samples" value="10000" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="num_workers">Number of workers</label>
+                        <input class="form-control" id="num-workers" type="number" name="num_workers" value="4" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md submit-button">
+                <button type="submit" class="btn btn-primary mb-3" data-toggle="modal" data-target="#prob-modal">Estimate</button>
+            </div>
+            <div class="col-md" id="logo">
+                <img class="img-fluid" src="images/aces.png"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="prob-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="probModalLabel">Probability results</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="result-prob"></div>
+            </div>
+        </div>
     </div>
-    <div id="cards">
+</div>
+
+<div id="cards-desktop" class="mb-3">
+    <div class="cards-row">
         <div class="card">
             <img src="images/2c.png"/>
             <div class="card-posess"></div>
@@ -79,7 +132,9 @@
             <img src="images/Ac.png"/>
             <div class="card-posess"></div>
         </div>
-        
+    </div>
+    
+    <div class="cards-row">
         <div class="card">
             <img src="images/2d.png"/>
             <div class="card-posess"></div>
@@ -132,60 +187,9 @@
             <img src="images/Ad.png"/>
             <div class="card-posess"></div>
         </div>
-        
-        <div class="card">
-            <img src="images/2s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/3s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/4s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/5s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/6s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/7s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/8s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/9s.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/Ts.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/Js.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/Qs.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/Ks.png"/>
-            <div class="card-posess"></div>
-        </div>
-        <div class="card">
-            <img src="images/As.png"/>
-            <div class="card-posess"></div>
-        </div>
-        
+    </div>
+
+    <div class="cards-row">
         <div class="card">
             <img src="images/2h.png"/>
             <div class="card-posess"></div>
@@ -239,8 +243,311 @@
             <div class="card-posess"></div>
         </div>
     </div>
-    <div id="form">
-        <div id="result-prob"></div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/2s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/3s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/4s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/5s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/6s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/7s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/8s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/9s.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Ts.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Js.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Qs.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Ks.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/As.png"/>
+            <div class="card-posess"></div>
+        </div>
     </div>
+</div>
+
+<div id="cards-mobile" class="mb-3">
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/2c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/2d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/2h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/2s.png"/>
+            <div class="card-posess"></div>
+        </div>
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/3c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/3d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/3h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/3s.png"/>
+            <div class="card-posess"></div>
+        </div>
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/4c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/4d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/4h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/4s.png"/>
+            <div class="card-posess"></div>
+        </div>
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/5c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/5d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/5h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/5s.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/6c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/6d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/6h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/6s.png"/>
+            <div class="card-posess"></div>
+        </div>
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/7c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/7d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/7h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/7s.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/8c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/8d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/8h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/8s.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/9c.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/9d.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/9h.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/9s.png"/>
+            <div class="card-posess"></div>
+        </div>
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/Tc.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Td.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Th.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Ts.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/Jc.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Jd.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Jh.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Js.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/Qc.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Qd.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Qh.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Qs.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/Kc.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Kd.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Kh.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Ks.png"/>
+            <div class="card-posess"></div>
+        </div>        
+    </div>
+
+    <div class="cards-row">
+        <div class="card">
+            <img src="images/Ac.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Ad.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/Ah.png"/>
+            <div class="card-posess"></div>
+        </div>
+        <div class="card">
+            <img src="images/As.png"/>
+            <div class="card-posess"></div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

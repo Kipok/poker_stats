@@ -15,12 +15,12 @@
     <title>Poker stats</title>
 </head>
 <body>
-<div class="container mt-3" id="main-form">
+<div class="container mt-3 mb-1" id="main-form">
     <form id="prob-form" action="#">
         <div class="form-row">
             <div class="col-md">
                 <div id="basic-options-toggle" class="mb-2">
-                    <a data-toggle="collapse" href="#basic-options" role="button" aria-expanded="false" aria-controls="collapsedBlock">Basic options</a>
+                    <a data-toggle="collapse" href="#basic-options" role="button" aria-expanded="false" aria-controls="basic-options">Basic options</a>
                 </div>
                 <div class="mb-2 collapse show" id="basic-options">
                     <div class="form-group">
@@ -39,9 +39,9 @@
             </div>
             <div class="col-md">
                 <div id="adv-options-toggle" class="mb-2">
-                      <a data-toggle="collapse" href="#adv-options" role="button" aria-expanded="false" aria-controls="collapsedBlock">Advanced options</a>
+                      <a data-toggle="collapse" href="#adv-options" role="button" aria-expanded="false" aria-controls="adv-options">Advanced options</a>
                 </div>
-                <div class="mb-2 collapse" id="adv-options">
+                <div class="mb-2 collapse show" id="adv-options">
                     <div class="form-group">
                         <label for="num_samples">Simulate games</label>
                         <input class="form-control" id="num-samples" type="number" name="num_samples" value="10000" required/>
@@ -50,10 +50,13 @@
                         <label for="num_workers">Number of workers</label>
                         <input class="form-control" id="num-workers" type="number" name="num_workers" value="4" required/>
                     </div>
-                </div>                
+                </div>
             </div>
-            <div class="col-md align-bottom">
+            <div class="col-md submit-button">
                 <button type="submit" class="btn btn-primary mb-3" data-toggle="modal" data-target="#prob-modal">Estimate</button>
+            </div>
+            <div class="col-md" id="logo">
+                <img class="img-fluid" src="images/aces.png"/>
             </div>
         </div>
     </form>

@@ -28,6 +28,12 @@ body {
 .submit-button {
     max-width: 107px;
     align-self: end;
+    height: 204px;
+}
+
+.submit-button button {
+    position: absolute;
+    bottom: 0;
 }
 
 .card-posess {

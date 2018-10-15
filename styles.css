@@ -2,10 +2,6 @@ body {
     font-family: verdana;
 }
 
-#main-form {
-    /*max-width: 400px;*/
-}
-
 .card, .card-clicked {
     height: 9.2vw;
     width: 5.9vw;

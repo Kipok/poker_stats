@@ -2,8 +2,19 @@ $("document").ready(function() {
     if ($(window).width() < 768) {
         $("#adv-options").removeClass("show");
     }
+    
+    $('#estimate-button').on('click', function (event) {
+        event.stopPropagation();
+        if ($('#prob-form')[0].checkValidity()) {
+            var target = $(this).attr("data-target");
+            $("#prob-modal").modal("show");
+        }
+    });
 
     $('#prob-form').submit(function(event) {
+        if (!$('#prob-form')[0].checkValidity()) {
+            return;
+        }
         $("#result-prob").text("...Processing...");
         event.preventDefault();
         var form_data = $('#prob-form').serializeArray();
